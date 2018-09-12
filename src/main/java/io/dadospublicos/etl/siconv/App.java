@@ -13,7 +13,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
  */
 public class App {
     public static void main(String[] args){
-        System.out.println("ETL Siconv");
+        System.out.println("Início ETL Siconv");
 
         String bootstrapServers = "127.0.0.1:9092";
 
@@ -35,5 +35,7 @@ public class App {
         // Forçar o carregamento dos dados no cunsumer
         producer.flush();
         producer.close();
+
+        System.out.println("Fim ETL Siconv");
     }
 }
