@@ -1,0 +1,27 @@
+CONEXÃO MÁQUINA LINUX
+ssh vp@192.168.0.102
+
+ZOOKEEPER START
+/home/vp/kafka/bin/zookeeper-server-start.sh /home/vp/kafka/config/zookeeper.properties
+
+KAFKA SERVER START
+/home/vp/kafka/bin/kafka-server-start.sh /home/vp/kafka/config/server.properties
+
+COMSUMER TESTE
+/home/vp/kafka/bin/kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic siconv --group test
+
+GERAR JAR
+mvn package
+
+EXECUTAR JAR
+java -jar kafka-1.0.0.jar
+java -cp kafka-1.0.0.jar:. treinamento.kafka.Producer (no Windows: java -cp kafka-1.0.0.jar;. treinamento.kafka.Producer)
+java -cp kafka-1.0.0.jar:. treinamento.kafka.Consumer (no Windows: java -cp kafka-1.0.0.jar;. treinamento.kafka.Consumer)
+
+DELETE TOPIC
+Stop Kafka server
+Delete the topic directory with rm -rf command
+Connect to Zookeeper instance: zookeeper-shell.sh localhost:2181 ls /brokers/topics
+Remove the topic folder from ZooKeeper using zookeeper-shell.sh localhost:2181 rmr /brokers/topics/teste
+Restart Kafka server
+Confirm if it was deleted or not by using this command kafka-topics.sh --list --zookeeper localhost:2181
