@@ -37,8 +37,12 @@ public class App {
         List<Integer> itens = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
         for(Integer item : itens){
+            String topic = "teste";
+            String key = "id_" + Integer.toString(item);
+            String value = "teste_" + Integer.toString(item);
+
             // Criação do registros do producer
-            ProducerRecord<String, String> record = new ProducerRecord<String, String>("siconv", "teste_" + Integer.toString(item));
+            ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, key, value);
 
             // Carregamento dos dados
             producer.send(record, new Callback() {
