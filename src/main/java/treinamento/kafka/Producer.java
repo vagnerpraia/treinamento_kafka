@@ -1,4 +1,4 @@
-package io.dadospublicos.etl.siconv;
+package treinamento.kafka;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,14 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * ETL Siconv
+ * Producer
  *
  */
-public class App {
+public class Producer {
     public static void main(String[] args){
-        System.out.println("Início ETL Siconv");
-
-        final Logger logger = LoggerFactory.getLogger(App.class);
+        final Logger logger = LoggerFactory.getLogger(Producer.class.getName());
 
         String bootstrapServers = "127.0.0.1:9092";
 
@@ -64,7 +62,5 @@ public class App {
         // Forçar o carregamento dos dados no cunsumer
         producer.flush();
         producer.close();
-
-        System.out.println("Fim ETL Siconv");
     }
 }
