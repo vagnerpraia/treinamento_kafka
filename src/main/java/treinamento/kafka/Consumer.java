@@ -8,20 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Consumer {
-    final Logger logger = LoggerFactory.getLogger(Consumer.class.getName());
-
     public static void main(String[] args){
-        execute();
-    }
+        final Logger logger = LoggerFactory.getLogger(Consumer.class.getName());
 
-    private void execute(){
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(2);
         String bootstrapServers = "127.0.0.1:9092";
         String groupId = "teste_consumer";
         String autoOffsetReset = "earliest";
         List<String> topics = Arrays.asList("teste");
 
-        Runnable consumerRunnable = new ConsumerRunnable(latch, bootstrapServers, groupId, autoOffsetReset, topics);
+        final Runnable consumerRunnable = new ConsumerRunnable(latch, bootstrapServers, groupId, autoOffsetReset, topics) (latch, bootstrapServers, groupId, autoOffsetReset, topics);
 
         Thread consumer = new Thread(consumerRunnable);
         consumer.start();
