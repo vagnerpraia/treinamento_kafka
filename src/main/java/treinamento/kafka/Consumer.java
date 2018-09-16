@@ -1,52 +1,38 @@
 package treinamento.kafka;
 
-import java.time.Duration;
+import java.lang.Runnable;
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
 import java.util.List;
-import java.util.Properties;
-
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Consumer
- *
- */
 public class Consumer {
-    public static void main(String[] args){
-        final Logger logger = LoggerFactory.getLogger(Consumer.class.getName());
+    final Logger logger = LoggerFactory.getLogger(Consumer.class.getName());
 
+    public static void main(String[] args){
+        CountDownLatch latch = new CountDownLatch(1);
         String bootstrapServers = "127.0.0.1:9092";
         String groupId = "teste_consumer";
         String autoOffsetReset = "earliest";
-        
-        // Propriedades do consumer
-        Properties properties = new Properties();
-        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
-
-        // Criação do consumer
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
-
-        // Inscrição de tópico(s)
         List<String> topics = Arrays.asList("teste");
-        consumer.subscribe(topics);
 
-        // Pesquisa novos dados
-        while(true){
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+        Runnable consumerRunnable = new ConsumerRunnable(latch, bootstrapServers, groupId, autoOffsetReset, topics);
 
-            for(ConsumerRecord<String, String> record : records){
-                logger.info(record.value());
-            }
+        Thread consumer = new Thread(consumerRunnable);
+        consumer.start();
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Caught shutdown hook");
+            ((ConsumerRunnable) consumerRunnable).shutdown();
+        }));
+
+        try{
+            latch.await();
+        }catch(InterruptedException e){
+            logger.error("Aplicação foi enterrompida.", e);
+        }finally{
+            logger.info("Close");
         }
     }
 }

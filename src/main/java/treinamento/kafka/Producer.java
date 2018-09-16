@@ -13,10 +13,6 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Producer
- *
- */
 public class Producer {
     public static void main(String[] args){
         final Logger logger = LoggerFactory.getLogger(Producer.class.getName());
