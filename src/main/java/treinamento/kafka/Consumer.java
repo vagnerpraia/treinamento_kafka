@@ -11,6 +11,10 @@ public class Consumer {
     final Logger logger = LoggerFactory.getLogger(Consumer.class.getName());
 
     public static void main(String[] args){
+        execute();
+    }
+
+    private void execute(){
         CountDownLatch latch = new CountDownLatch(1);
         String bootstrapServers = "127.0.0.1:9092";
         String groupId = "teste_consumer";
