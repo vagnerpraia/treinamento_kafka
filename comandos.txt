@@ -1,6 +1,3 @@
-CONEXÃO MÁQUINA LINUX
-ssh vp@192.168.0.102
-
 ZOOKEEPER START
 /home/vp/kafka/bin/zookeeper-server-start.sh /home/vp/kafka/config/zookeeper.properties
 

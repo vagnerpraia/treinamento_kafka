@@ -21,7 +21,7 @@ public class Producer {
     public static void main(String[] args){
         final Logger logger = LoggerFactory.getLogger(Producer.class.getName());
 
-        String bootstrapServers = "127.0.0.1:9092";
+        String bootstrapServers = "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094";
 
         // Propriedades do producer
         Properties properties = new Properties();
