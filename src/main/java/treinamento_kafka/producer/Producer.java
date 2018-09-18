@@ -14,9 +14,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Producer {
-    public static void main(String[] args){
-        final Logger logger = LoggerFactory.getLogger(Producer.class.getName());
+    final Logger logger = LoggerFactory.getLogger(Producer.class.getName());
 
+    public static void main(String[] args){
         String bootstrapServers = "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094";
 
         // Propriedades do producer
