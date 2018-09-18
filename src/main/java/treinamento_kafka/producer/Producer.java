@@ -1,4 +1,4 @@
-package treinamento.kafka;
+package treinamento_kafka.producer;
 
 import java.util.Arrays;
 import java.util.List;
