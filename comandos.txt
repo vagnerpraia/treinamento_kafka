@@ -11,9 +11,7 @@ GERAR JAR
 mvn package
 
 EXECUTAR JAR
-java -jar kafka-1.0.0.jar
-java -cp kafka-1.0.0.jar:. treinamento.kafka.Producer (no Windows: java -cp kafka-1.0.0.jar;. treinamento.kafka.Producer)
-java -cp kafka-1.0.0.jar:. treinamento.kafka.Consumer (no Windows: java -cp kafka-1.0.0.jar;. treinamento.kafka.Consumer)
+java -cp producer-1.0.0.jar:. treinamento_kafka.producer.Producer (no Windows: java -cp producer-1.0.0.jar;. treinamento_kafka.producer.Producer)
 
 DELETE TOPIC
 Stop Kafka server
