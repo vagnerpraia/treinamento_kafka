@@ -2,9 +2,7 @@ package treinamento_kafka.producer;
 
 import java.lang.management.ManagementFactory;
 import java.lang.Runnable;
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
